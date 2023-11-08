@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}
+Add Categary
+{% endblock title %}
+
+
+{% block content %}
+
+{% if user.is_authenticated %}
+    <h1>Add Catagary Here....</h1>
+<div class="form-group">
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class='btn btn-primary'>Categary!</button>
+    </form>
+</div>
+
+{% else %}
+
+<h1>You Are Not Loged In</h1>
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}
+{{post.title_tag}}
+{% endblock title %}
+
+{% block content %}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            {% if user.is_authenticated %}
+                {% if user.id == post.author.id  %}
+            <h1>Your Detail Post Now Open!</h1>
+            <div class="card border-warning mb-3">
+                <div class="card-header">Title: {{post.title}}</div>
+                <div class="card-body">
+                  <h5 class="card-title">Author: {{post.author.first_name}} {{post.author.last_name}}</h5>
+                  <p class="card-text">Content: {{post.body|safe}}</p>
+                  {% if post.header_image %}
+                  <img src={{post.header_image.url}} alt="" class="img-fluid">
+                  {% endif %}
+                  <p>You did't Uploaded Image for this Post!</p>
+                 
+                </div>
+                {{post.post_date}}
+            </div>
+
+            <hr>
+            <form action={% url "like_post" post.pk%} method="POST" >
+                 {% csrf_token %}
+                 <button type="submit", name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm">Like</button>
+            </form>
+
+            <h2>Comments :</h2>
+            {% if not post.comments.all %}
+            No Comments Yet... <a href="#">Add One</a>
+            {% else %}
+            {% for comment in post.comments.all %}
+            <strong>{{comment.name}}</strong>
+            <p>{{comment.body}}</p>
+            <p>{{comment.date_dated}}</p>
+            {% endfor %}
+            {% endif %}
+
+            <hr>
+            <a href={% url "home" %} class="btn btn-primary">Back</a>
+    
+            <a href={% url "delete_post" post.pk %} class="btn btn-danger">Delete</a>
+            <a href={% url "update_post" post.pk %} class="btn btn-warning">Edit</a>
+
+            
+
+            {% else %}
+            <h1>not</h1>
+        </div>
+    </div>
+</div>
+
+
+    
+    {% endif %}
+    {% endif %}
+
+{% endblock %}

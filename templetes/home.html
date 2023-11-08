@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}
+Anand Blogs
+{% endblock title %}
+
+
+{% block content %}
+
+
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col">
+            
+        {% if user.is_authenticated %}
+          
+            {% for x in object_list  %}
+            {% if user.id == x.author.id %}
+            <div class="card text-center">
+                <div class="card-header">
+                    <h4>Title: {{x.title}}</h4>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Author:{{x.author.first_name}}{{x.author.last_name}}</h5>
+                  <p class="card-text">Content: {{x.body|slice:"0:500"|safe}}</p>
+                  <a href={% url "article-detail" x.pk %} class="btn btn-primary">More!</a>
+                  <a href={% url "categary" x.categary %} class="btn btn-success">All blogs by Category-{{x.categary}}</a>
+                  <a href={% url "update_post" x.pk %} class="btn btn-warning">Edit</a>
+                  <a href={% url "delete_post" x.pk %} class="btn btn-danger">Delete</a>
+                  
+                  
+                </div>
+                <div class="card-footer text-body-secondary">
+                  {{x.post_date}}
+                </div>
+                {% endif %}
+
+
+
+            </div>
+             {% endfor %}
+            
+
+         
+
+        {% else %}
+
+        {% for con in content  %}
+        
+        <h1>{{con.blog_heading}}</h1>
+        <p>{{con.blog_heading_body}}</p>
+        {% endfor %}
+
+        {% endif %}
+
+         </div>
+
+    </div>
+</div>
+
+        
+    
+{% endblock %}

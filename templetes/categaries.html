@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}
+{{post.title_tag}}
+{% endblock title %}
+
+{% block content %}
+
+{% if categary_post %}
+
+    <h1>{{cats}}</h1>
+    {% for post in categary_post %}
+    <ul>
+        <li>{{post.author}}</li>
+        <li>{{post.author.first_name}}{{post.author.last_name}}</li>
+        <li>{{post.title}}</li>
+        <li>{{post.title_tag}}</li>
+        <li>{{post.body}}</li>
+    </ul>
+    
+    {% endfor %}
+
+    {% else %}
+
+    <h1>This Categary not Added to our site....</h1>
+
+    {% endif %}
+
+{% endblock %}

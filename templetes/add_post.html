@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}
+Add Posts
+{% endblock title %}
+
+
+{% block content %}
+
+{% if user.is_authenticated %}
+    <h1>Add New Post Here....</h1>
+<div class="form-group">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.media}}
+        {{form.as_p}}
+        <button type="submit" class='btn btn-primary'>POST!</button>
+    </form>
+</div>
+
+{% else %}
+
+<h1>You Are Not Loged In</h1>
+{% endif %}
+
+{% endblock content %}
